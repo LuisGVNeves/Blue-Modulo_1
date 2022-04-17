@@ -68,3 +68,97 @@ h1 {
   background-color: rgb(255, 65, 65);
   font-weight: bolder;
 }
+
+
+
+/*Classes para usar no JS*/
+.hidden{
+  display: none;
+}
+
+/*Barra de progresso*/
+#container-barra-progresso{
+  width: 680px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  text-align: center;
+}
+.barra-progresso {
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  background: rgb(0, 110, 255); 
+  border: 1px solid rgba(0, 1, 82, 0.359);
+  border-radius: 2%;
+}
+.carregamento {
+  height: 40px;
+  width: 0%; 
+  background-color: rgb(96, 181, 255); 
+  color: #FFF;
+  animation: load 5s linear;
+}
+.carregamento h2 {
+  padding-left: 300px;
+}
+
+@keyframes load {
+  0% {
+    width: 0%;
+  }
+  10% {
+    width: 10%;
+  }
+  20% {
+    width: 20%;
+  }
+  30% {
+    width: 30%;
+  }
+  40% {
+    width: 40%;
+  }
+  50% {
+    width: 50%;
+  }
+  60% {
+    width: 60%;
+  }
+  70% {
+    width: 70%;
+  }
+  80% {
+    width: 80%;
+  }
+  90% {
+    width: 90%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/*Paragrafo de motivação*/
+#motivacao{
+  width: 680px;
+  color: white;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 50px;
+  padding-bottom: 20px;
+}
+/*Foto do dr no laboratório*/
+#work{
+  display: flex;
+  align-items: center;
+  margin-top: -83%;
+  margin-left: -20%;
+}
+
+/*Frase dias*/
+#dias-contados{
+  color: white;
+}
