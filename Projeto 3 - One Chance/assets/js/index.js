@@ -6,5 +6,5 @@ function comecarJogo(){
     vai ser responsável por simular como se fosse uma "rota" no express,
     abrindo minha página 1_comeco.html em outra aba ('_blank')
   */
-  window.open('./html/1_comeco.html', '_blank')
+  window.open('../Projeto 3 - One Chance/assets/html/main.html', '_blank')
 }

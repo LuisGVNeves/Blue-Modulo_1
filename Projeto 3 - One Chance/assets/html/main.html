@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho</title>
+    <link rel="stylesheet" href="../css/main.css">
+  </head>
+  <body>
+
+    <!--O texto está assim para efeito de digitação no CSS-->
+    <h1 id="h1-principal">
+      <span>Em</span>
+      <span>&nbsp;</span>
+      <span id="dias-contados">cinco</span>
+      <span>&nbsp;</span>
+      <span id="dias">dias</span>
+      <span>&nbsp;</span>
+      <span>,</span>
+      <span>&nbsp;</span>
+      <span>todas</span>
+      <span>&nbsp;</span>
+      <span>as</span>
+      <span>&nbsp;</span>
+      <span>células</span>
+      <span>&nbsp;</span>
+      <span>do</span>
+      <span>&nbsp;</span>
+      <span>planeta</span>
+      <span>&nbsp;</span>
+      <span>morrerão.</span>
+      <span>&nbsp;</span>
+      <span>Você</span>
+      <span>&nbsp;</span>
+      <span>tem</span>
+      <span>&nbsp;</span>
+      <span>uma</span>
+      <span>&nbsp;</span>
+      <span>chance !</span>
+      <span>&nbsp;</span>
+      <span>Dr.</span>
+      <span>Pilgrin</span>
+    </h1>
+    
+    <!--Imagem de ficar em casa + botões de trabalhar e ficar em casa-->
+    <div id="imagem-dr">
+      <img src="../img/1_comeco.png" alt="dr pilgrin" id="photo-pilgrin">
+    </div>
+
+    <!--Botões de ficar em casa-->
+    <div id="botoes-container">
+      <button type="button" id="btn-irTrabalhar">Ir Trabalhar ?</button>
+      <button type="button" id="btn-ficarEmCasa">Ficar em Casa ?</button>      
+    </div>
+    
+    
+    <!--
+      Referência: https://pt.stackoverflow.com/questions/268320/como-conseguir-este-efeito-em-uma-barra-de-progresso
+      Barra de progresso - Vai ter display none para sumir, até que usuário escolha ir para o trabalho
+    -->
+
+    <div id="container-barra-progresso" class="hidden">
+
+      <!--Frases motivadoras pra quando usuario for pro trabalho-->
+      <p id="motivacao" class="hidden">aa</p>
+      
+      <!--Barra de progresso-->
+      <div class="barra-progresso">
+        <div class="carregamento">
+          <h2 class="hidden" id="vinte-porcento">20%</h2>
+          <h2 class="hidden" id="quarenta-porcento">40%</h2>
+          <h2 class="hidden" id="sessenta-porcento">60%</h2>
+          <h2 class="hidden" id="oitenta-porcento">80%</h2>
+          <h2 class="hidden" id="cem-porcento">100%</h2>
+        </div> 
+      </div>
+    
+      <!--Foto que aparece quando o usuário vai trabalhar-->
+      <img src="../img/work.png" alt="work one chance" id="drTrabalhoPhoto">
+
+    </div>
+
+
+    <!--Quando usuário escolhe ficar em casa-->
+    <div class="ficar-emCasa-container hidden">
+
+      <!--frase dizendo que a molly ficou feliz-->
+      <p id="ficarEmCasa-frase"></p>
+
+      <!--Imagem com a filha dele-->
+      <img src="../img/molly.png" alt="moly one chance" id="mollyPhoto">
+
+      <!--Dia 1 ficando em casa-->
+      <div>
+        <!--Icone jornal-->
+        <img src="../img/newsIcon.png" alt="icone jornal" id="icone-jornal">
+        <img src="../img/papper1.png" alt="papel one chance" class="hidden">
+      </div>
+
+      
+    </div>
+      
+
+
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>

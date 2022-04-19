@@ -56,7 +56,7 @@ setTimeout(() => {
   let btn_FicarEmCasa = document.getElementById('btn-ficarEmCasa');
   let btn_irTrabalhar = document.getElementById('btn-irTrabalhar');
   let paragrafoMotivacao = document.getElementById('motivacao');
-  let fotoDrNoTrabalho = document.getElementById('work');
+  let fotoDrNoTrabalho = document.getElementById('drTrabalhoPhoto');
   let container_barra_progresso = document.querySelector('#container-barra-progresso');
 
   let vinte_porcento = document.getElementById('vinte-porcento');
@@ -105,6 +105,7 @@ setTimeout(() => {
   */
   let contadorTrabalho = 0;
   btn_irTrabalhar.addEventListener('click', function(){
+
 
     // Incrementação da variável que indica que usuário clicou no botão de ir trabalhar
     contadorTrabalho++;
@@ -527,35 +528,101 @@ setTimeout(() => {
     }
   });
 
-
-
+  
   /*
     # Case para quando o usuário NÃO for trabalhar
     - Se ele clicar no botão ficar em casa, o contadorFicarEmCasa vai incrementar em 1, então isso mostra
     que o usuário ficou em casa 1 vez, cada vez que esse botão é clicado, essa variável é incrementada.
   */
   let contadorFicarEmCasa = 0;
-    
+   
+  // # Frase pra quando usuário escolher ficar em casa
+  let ficarEmCasa_container = document.querySelector('.ficar-emCasa-container');
+  let ficarEmCasa_frase = document.getElementById('ficarEmCasa-frase');
 
   btn_FicarEmCasa.addEventListener('click', function(){
+    
     contadorFicarEmCasa++;
 
+    // # Ficou em casa primeiro dia
     if(contadorFicarEmCasa == 1){
       console.log('ficou em casa');
+      /*
+      Objetivo:
+      - Usuário escolheu ficar em casa, portanto os elementos que estavam disponíveis
+      precisam desaparecer, para isso vou adicionar a classe hidden neles
+      */
       btn_irTrabalhar.classList.add('hidden');
       btn_FicarEmCasa.classList.add('hidden');
       imagem_dr.classList.add('hidden');
       h1.classList.add('hidden');
+
+      // Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
+      ficarEmCasa_container.classList.remove('hidden');
+      ficarEmCasa_frase.innerText = "Você" +" ficou" +" em" +" casa" +" com sua filha molly," +" ela" +" está" +" muito feliz," + " alguns" + " casos"+ " de" + " morte" + " se" + " alastram pelo país.";
+        
+      // Adicionando a foto da molly feliz
+      let mollyPhoto = document.getElementById('mollyPhoto');
+      mollyPhoto.classList.remove("hidden");
+
+  
+  
+      /*
+        Objetivo:
+        - diminuir no array o progresso -20%
+        - Adicionar palavra de motivação/desmotivação ao usuário escolher ficar em casa
+        - diminuir o atributo do personagem
+        - Decrementar o dia
+      */
+        
+
+
+      // Aumentando atributos do personagem
+      drPilgrin.diminuirStamina();
+
+      // Diminuindo progresso do array
+      progresso.push('-20%');
+  
+  
+      /* # Após 3 segundos...
+      setTimeout(() => {
+  
+        /*
+          Objetivo:
+          - Remover a classe hidden dos botões de ir para o trabalho e de ficar em casa
+          - Remover a classe hidden da imagem do médico pilgrin na casa dele
+          - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
+       
+        btn_irTrabalhar.classList.remove('hidden');
+        btn_FicarEmCasa.classList.remove('hidden');
+        imagem_dr.classList.remove('hidden');
+        h1.classList.remove('hidden');
+      
+
+
+        /*
+          Objetivo:
+          - O usuário escolheu ficar em casa, portanto já se passou um dia, então vou invocar a função
+          decrementarDias() que é responsável por decrementar os dias
+        
+        decrementarDias();
+  
+      },3000)
+      */    
     }
+    // # Ficou em casa segundo dia
     if(contadorFicarEmCasa == 2){
       console.log('Foi ao trabalho');
     }
+    // # Ficou em casa terceiro dia
     if(contadorFicarEmCasa == 3){
       console.log('Foi ao trabalho');
     }
+    // # Ficou em casa quarto dia
     if(contadorFicarEmCasa == 4){
       console.log('Foi ao trabalho');
     }
+    // # Ficou em casa quinto dia
     if(contadorFicarEmCasa == 5){
       console.log('Foi ao trabalho');
     }
