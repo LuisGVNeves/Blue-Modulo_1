@@ -51,29 +51,40 @@ let drPilgrin = {
 
 setTimeout(() => {
   // Variáveis do DOM, para serem acessadas após 3 seg
+
+  // # Imagem principal home
   let imagem_dr = document.getElementById('imagem-dr');
+  
+  // # Titulo principal: "Em cinco dias, todas as celulas..."
   let h1 = document.getElementById('h1-principal');
+
+  // # Botões de ficar em casa ou ir trabalhar
   let btn_FicarEmCasa = document.getElementById('btn-ficarEmCasa');
   let btn_irTrabalhar = document.getElementById('btn-irTrabalhar');
+  
+  // # Paragrafo que mostra motivação ao escolher ir pro trabalho ou ficar em casa
   let paragrafoMotivacao = document.getElementById('motivacao');
+
+  // # Foto do dr. no trabalho
   let fotoDrNoTrabalho = document.getElementById('drTrabalhoPhoto');
+  
+  // # Container da barra de progresso
   let container_barra_progresso = document.querySelector('#container-barra-progresso');
 
-  let vinte_porcento = document.getElementById('vinte-porcento');
-  let quarenta_porcento  = document.getElementById('quarenta-porcento');
-  let sessenta_porcento = document.querySelector('#sessenta-porcento');
-  let oitenta_porcento = document.querySelector('#oitenta-porcento');
-  let cem_porcento = document.getElementById('cem-porcento');
+
+  // Porcentagem da barra de progresso animado
+  let porcentoBarra = document.getElementById('porcento-numero');
 
 
   // Progresso do usuário
   let progresso = [];
   
   /*
-    Objetivo:
+    Objetivo: Controle de passagem do tempo
     - Decrementar os dias na frase principal do <h1>
     "Em SEIS dias, todas as células...."
     "Em CINCO dias, todas as células...."
+    "Em UM DIA, todas as celulas.."
   */
   let dias_contados = document.getElementById('dias-contados');
   let dia = document.getElementById('dias');
@@ -93,7 +104,7 @@ setTimeout(() => {
     }
     if(contadorFicarEmCasa == 5 || contadorTrabalho == 5){
       // Concatenei o texto assim para não perder o efeito de digitação no css
-      h1.innerText = 'A '+' cura '+' do ' + ' corona '+ ' virus'+ ' foi'+ ' alcançada'+ ' !'+ ' Parabéns'+ ' Dr'+' .'+ ' Pilgrin';
+      h1.innerText = 'Finalmente' +' temos'+ ' a'+ ' alegria'+ ' de'+ ' anunciar'+ ' a' + 'cura '+' do ' + ' corona '+ ' virus'+ ' foi'+ ' alcançada'+ ' !'+ ' Parabéns'+ ' Dr'+' .'+ ' Pilgrin';
     }
   }
 
@@ -106,9 +117,50 @@ setTimeout(() => {
   let contadorTrabalho = 0;
   btn_irTrabalhar.addEventListener('click', function(){
 
-
     // Incrementação da variável que indica que usuário clicou no botão de ir trabalhar
     contadorTrabalho++;
+    
+    // # Funcao adicionar classe hidden para esconder os elementos
+    function addHidden(elemento){
+      elemento.classList.add('hidden');
+    }
+    
+    // # Função remover classe hidden para aparecer os elementos
+    function removeHidden(elemento){
+      elemento.classList.remove('hidden');
+    }
+    
+    // # Função para incrementar progresso no array
+    function aumentarProgresso(num){
+      return progresso.push(num);
+    }
+    
+    // # Função para mostrar o quanto o usuário avançou na pesquisa
+    function avancouNaPesquisa(){
+      for(let i=0; i< progresso.length; i++){
+        if(progresso[i] == 20){
+          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 20% na pesquisa ! parabéns`;
+          porcentoBarra.innerText = '20%';
+        }
+        if(progresso[i] == 40){
+          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 40% na pesquisa ! parabéns`;
+          porcentoBarra.innerText = '40%';
+        }
+        if(progresso[i] == 60){
+          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 60% na pesquisa ! parabéns`;
+          porcentoBarra.innerText = '60%';
+        }
+        if(progresso[i] == 80){
+          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 80% na pesquisa ! parabéns`;
+          porcentoBarra.innerText = '80%';
+        }
+        if(progresso[i] == 100){
+          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 100% na pesquisa ! parabéns`;
+          porcentoBarra.innerText = '100%';
+        }
+      }
+    }
+    
 
     // # DIA 1 INDO AO TRABALHO
     if(contadorTrabalho == 1){
@@ -119,12 +171,10 @@ setTimeout(() => {
         - Usuário escolheu ir trabalhar, portanto os elementos que estavam disponíveis
         precisam desaparecer, para isso vou adicionar a classe hidden neles
       */
-      btn_irTrabalhar.classList.add('hidden');
-      imagem_dr.classList.add('hidden');
-      h1.classList.add('hidden');
-      btn_FicarEmCasa.classList.add('hidden');
-
-
+      addHidden(btn_irTrabalhar);
+      addHidden(imagem_dr);
+      addHidden(h1);
+      addHidden(btn_FicarEmCasa);
       /*
         Objetivo:
         - Mostrar a barra de progresso que a cura do corona está chegando
@@ -137,23 +187,20 @@ setTimeout(() => {
         A barra de progresso tem uma animação de 5 segundos, então após 6seg eu vou liberar de novo
         os botões de ir ao trabalho ou de ficarem em casa para serem clicados novamente
       */
-      
-      // Removendo a classe Hidden para que a barra apareça na tela
-      container_barra_progresso.classList.remove('hidden');
-
-      // Tirando a classe hidden, para que o <h2> com 20% apareça
-      vinte_porcento.classList.remove('hidden');
-
-      // Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
-      paragrafoMotivacao.innerText = "Você foi ao trabalho e avançou 20% na pesquisa ! parabéns"
-      paragrafoMotivacao.classList.remove('hidden');
-
-      // Aumentando atributos do personagem
-      drPilgrin.aumentarAtributos();
 
       // Aumentando progresso do array
-      progresso.push('20%');
+      aumentarProgresso(20);
+           
+      // Aumentando atributos do personagem
+      drPilgrin.aumentarAtributos();
+     
+      // Palavra de motivação ao usuário escolher ir trabalhar, mostrando que aumentou a % da barra
+      avancouNaPesquisa()
 
+      // Mostrando a barra de progresso + as porcentagens + paragrafo de motivação
+      removeHidden(container_barra_progresso);
+      removeHidden(porcentoBarra);
+      removeHidden(paragrafoMotivacao);
 
       // # Após 6 segundos...
       setTimeout(() => {
@@ -164,21 +211,19 @@ setTimeout(() => {
           - Remover a classe hidden da imagem do médico pilgrin na casa dele
           - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
         */
-        btn_irTrabalhar.classList.remove('hidden');
-        btn_FicarEmCasa.classList.remove('hidden');
-        imagem_dr.classList.remove('hidden');
-        h1.classList.remove('hidden');
-
-
+        removeHidden(btn_irTrabalhar);
+        removeHidden(btn_FicarEmCasa);
+        removeHidden(imagem_dr);
+        removeHidden(h1);
         /*
           Objetivo:
           - Remover a barra de progresso
           - Remover o paragrafo de motivação
           - Remover a foto do Dr. Pilgrin no trabalho
         */
-        container_barra_progresso.classList.add('hidden');
-        paragrafoMotivacao.classList.add('hidden');
-        fotoDrNoTrabalho.classList.add('hidden');
+        addHidden(container_barra_progresso);
+        addHidden(paragrafoMotivacao);
+        addHidden(fotoDrNoTrabalho);
 
         /*
           Objetivo:
@@ -193,19 +238,16 @@ setTimeout(() => {
     // # DIA 2 INDO AO TRABALHO
     if(contadorTrabalho == 2 && contadorFicarEmCasa == 0){
       console.log('Foi ao trabalho pela segunda vez');
-
-
+  
       /*
         Objetivo:
         - Usuário escolheu ir trabalhar, portanto os elementos que estavam disponíveis
         precisam desaparecer, para isso vou adicionar a classe hidden neles
       */
-      btn_irTrabalhar.classList.add('hidden');
-      imagem_dr.classList.add('hidden');
-      h1.classList.add('hidden');
-      btn_FicarEmCasa.classList.add('hidden');
-
-
+      addHidden(btn_irTrabalhar);
+      addHidden(imagem_dr);
+      addHidden(h1);
+      addHidden(btn_FicarEmCasa);
       /*
         Objetivo:
         - Mostrar a barra de progresso que a cura do corona está chegando
@@ -218,27 +260,93 @@ setTimeout(() => {
         A barra de progresso tem uma animação de 5 segundos, então após 6seg eu vou liberar de novo
         os botões de ir ao trabalho ou de ficarem em casa para serem clicados novamente
       */
-      
-      // Removendo a classe Hidden para que a barra apareça na tela
-      container_barra_progresso.classList.remove('hidden');
-
-      // Tirando a classe hidden, para que o <h2> com 40% apareça
-      quarenta_porcento.classList.remove('hidden');
-
-      // Adicionando classe hidden, para que os 20% desapareça
-      vinte_porcento.classList.add("hidden");
-
-
-      // Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
-      paragrafoMotivacao.innerText = "Você foi ao trabalho e avançou 40% na pesquisa ! parabéns"
-      paragrafoMotivacao.classList.remove('hidden');
-
+  
+      // Aumentando progresso do array
+      aumentarProgresso(40);
+            
       // Aumentando atributos do personagem
       drPilgrin.aumentarAtributos();
+      
+      // Palavra de motivação ao usuário escolher ir trabalhar, mostrando que aumentou a % da barra
+      avancouNaPesquisa()
+
+      // Mostrando a barra de progresso + as porcentagens + paragrafo de motivação
+      removeHidden(container_barra_progresso);
+      removeHidden(porcentoBarra);
+      removeHidden(paragrafoMotivacao);
+
+      // # Após 6 segundos...
+      setTimeout(() => {
+  
+        /*
+          Objetivo:
+          - Remover a classe hidden dos botões de ir para o trabalho e de ficar em casa
+          - Remover a classe hidden da imagem do médico pilgrin na casa dele
+          - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
+        */
+        removeHidden(btn_irTrabalhar);
+        removeHidden(btn_FicarEmCasa);
+        removeHidden(imagem_dr);
+        removeHidden(h1);
+        /*
+          Objetivo:
+          - Remover a barra de progresso
+          - Remover o paragrafo de motivação
+          - Remover a foto do Dr. Pilgrin no trabalho
+        */
+        addHidden(container_barra_progresso);
+        addHidden(paragrafoMotivacao);
+        addHidden(fotoDrNoTrabalho);
+
+        /*
+          Objetivo:
+          - O usuário escolheu ir ao trabalho, portanto já se passou um dia, então vou invocar a função
+          decrementarDias() que é responsável por decrementar os dias
+        */
+        decrementarDias();
+  
+      },6000)
+
+    }
+    // # DIA 3 INDO AO TRABALHO
+    if(contadorTrabalho == 3 && contadorFicarEmCasa == 0){
+      console.log('Foi ao trabalho pela terceira vez');
+  
+      /*
+        Objetivo:
+        - Usuário escolheu ir trabalhar, portanto os elementos que estavam disponíveis
+        precisam desaparecer, para isso vou adicionar a classe hidden neles
+      */
+      addHidden(btn_irTrabalhar);
+      addHidden(imagem_dr);
+      addHidden(h1);
+      addHidden(btn_FicarEmCasa);
+      /*
+        Objetivo:
+        - Mostrar a barra de progresso que a cura do corona está chegando
+        - Adicionar no array o progresso +20%
+        - Adicionar palavra de motivação ao usuário escolher ir trabalhar
+        - Aumentar o atributo do personagem
+        - Decrementar o dia
+
+        ** IMPORTANTE **
+        A barra de progresso tem uma animação de 5 segundos, então após 6seg eu vou liberar de novo
+        os botões de ir ao trabalho ou de ficarem em casa para serem clicados novamente
+      */
 
       // Aumentando progresso do array
-      progresso.push('40%');
+      aumentarProgresso(60);
+            
+      // Aumentando atributos do personagem
+      drPilgrin.aumentarAtributos();
+      
+      // Palavra de motivação ao usuário escolher ir trabalhar, mostrando que aumentou a % da barra
+      avancouNaPesquisa()
 
+      // Mostrando a barra de progresso + as porcentagens + paragrafo de motivação
+      removeHidden(container_barra_progresso);
+      removeHidden(porcentoBarra);
+      removeHidden(paragrafoMotivacao);
 
       // # Após 6 segundos...
       setTimeout(() => {
@@ -249,21 +357,19 @@ setTimeout(() => {
           - Remover a classe hidden da imagem do médico pilgrin na casa dele
           - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
         */
-        btn_irTrabalhar.classList.remove('hidden');
-        btn_FicarEmCasa.classList.remove('hidden');
-        imagem_dr.classList.remove('hidden');
-        h1.classList.remove('hidden');
-
-
+        removeHidden(btn_irTrabalhar);
+        removeHidden(btn_FicarEmCasa);
+        removeHidden(imagem_dr);
+        removeHidden(h1);
         /*
           Objetivo:
           - Remover a barra de progresso
           - Remover o paragrafo de motivação
           - Remover a foto do Dr. Pilgrin no trabalho
         */
-        container_barra_progresso.classList.add('hidden');
-        paragrafoMotivacao.classList.add('hidden');
-        fotoDrNoTrabalho.classList.add('hidden');
+        addHidden(container_barra_progresso);
+        addHidden(paragrafoMotivacao);
+        addHidden(fotoDrNoTrabalho);
 
         /*
           Objetivo:
@@ -273,105 +379,21 @@ setTimeout(() => {
         decrementarDias();
 
       },6000)
-    }
-    // # DIA 3 INDO AO TRABALHO
-    if(contadorTrabalho == 3 && contadorFicarEmCasa == 0){
-      console.log('Foi ao trabalho pela terceira vez');
-      /*
-        Objetivo:
-        - Usuário escolheu ir trabalhar, portanto os elementos que estavam disponíveis
-        precisam desaparecer, para isso vou adicionar a classe hidden neles
-      */
-        btn_irTrabalhar.classList.add('hidden');
-        imagem_dr.classList.add('hidden');
-        h1.classList.add('hidden');
-        btn_FicarEmCasa.classList.add('hidden');
-  
-  
-        /*
-          Objetivo:
-          - Mostrar a barra de progresso que a cura do corona está chegando
-          - Adicionar no array o progresso +20%
-          - Adicionar palavra de motivação ao usuário escolher ir trabalhar
-          - Aumentar o atributo do personagem
-          - Decrementar o dia
-  
-          ** IMPORTANTE **
-          A barra de progresso tem uma animação de 5 segundos, então após 6seg eu vou liberar de novo
-          os botões de ir ao trabalho ou de ficarem em casa para serem clicados novamente
-        */
-        
-        // Removendo a classe Hidden para que a barra apareça na tela
-        container_barra_progresso.classList.remove('hidden');
-  
-        
-        // Adicionando classe hidden, para que os 20% | 40% desapareça
-        vinte_porcento.classList.add("hidden");
-        quarenta_porcento.classList.add("hidden");
-        
-        // Tirando a classe hidden, para que o <h2> com 60% apareça
-        sessenta_porcento.classList.remove('hidden');
-  
-        // Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
-        paragrafoMotivacao.innerText = "Você foi ao trabalho e avançou 60% na pesquisa ! parabéns"
-        paragrafoMotivacao.classList.remove('hidden');
-  
-        // Aumentando atributos do personagem
-        drPilgrin.aumentarAtributos();
-  
-        // Aumentando progresso do array
-        progresso.push('60%');
-  
-  
-        // # Após 6 segundos...
-        setTimeout(() => {
-  
-          /*
-            Objetivo:
-            - Remover a classe hidden dos botões de ir para o trabalho e de ficar em casa
-            - Remover a classe hidden da imagem do médico pilgrin na casa dele
-            - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
-          */
-          btn_irTrabalhar.classList.remove('hidden');
-          btn_FicarEmCasa.classList.remove('hidden');
-          imagem_dr.classList.remove('hidden');
-          h1.classList.remove('hidden');
-  
-  
-          /*
-            Objetivo:
-            - Remover a barra de progresso
-            - Remover o paragrafo de motivação
-            - Remover a foto do Dr. Pilgrin no trabalho
-          */
-          container_barra_progresso.classList.add('hidden');
-          paragrafoMotivacao.classList.add('hidden');
-          fotoDrNoTrabalho.classList.add('hidden');
-  
-          /*
-            Objetivo:
-            - O usuário escolheu ir ao trabalho, portanto já se passou um dia, então vou invocar a função
-            decrementarDias() que é responsável por decrementar os dias
-          */
-          decrementarDias();
-  
-        },6000)
 
     }
     // # DIA 4 INDO AO TRABALHO
     if(contadorTrabalho == 4 && contadorFicarEmCasa == 0){
       console.log('Foi ao trabalho pela quarta vez');
+   
       /*
         Objetivo:
         - Usuário escolheu ir trabalhar, portanto os elementos que estavam disponíveis
         precisam desaparecer, para isso vou adicionar a classe hidden neles
       */
-      btn_irTrabalhar.classList.add('hidden');
-      imagem_dr.classList.add('hidden');
-      h1.classList.add('hidden');
-      btn_FicarEmCasa.classList.add('hidden');
-  
-  
+      addHidden(btn_irTrabalhar);
+      addHidden(imagem_dr);
+      addHidden(h1);
+      addHidden(btn_FicarEmCasa);
       /*
         Objetivo:
         - Mostrar a barra de progresso que a cura do corona está chegando
@@ -384,54 +406,43 @@ setTimeout(() => {
         A barra de progresso tem uma animação de 5 segundos, então após 6seg eu vou liberar de novo
         os botões de ir ao trabalho ou de ficarem em casa para serem clicados novamente
       */
-        
-      // Removendo a classe Hidden para que a barra apareça na tela
-      container_barra_progresso.classList.remove('hidden');
-
-      
-      // Adicionando classe hidden, para que os 20% | 40% | 60 % desapareça
-      vinte_porcento.classList.add("hidden");
-      quarenta_porcento.classList.add("hidden");
-      sessenta_porcento.classList.add("hidden");
-      
-      // Tirando a classe hidden, para que o <h2> com 80% apareça
-      oitenta_porcento.classList.remove("hidden");
-
-      // Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
-      paragrafoMotivacao.innerText = "Você foi ao trabalho e avançou 80% na pesquisa ! parabéns"
-      paragrafoMotivacao.classList.remove("hidden");
-
-      // Aumentando atributos do personagem
-      drPilgrin.aumentarAtributos();
 
       // Aumentando progresso do array
-      progresso.push('80%');
-  
-  
+      aumentarProgresso(80);
+            
+      // Aumentando atributos do personagem
+      drPilgrin.aumentarAtributos();
+      
+      // Palavra de motivação ao usuário escolher ir trabalhar, mostrando que aumentou a % da barra
+      avancouNaPesquisa()
+
+      // Mostrando a barra de progresso + as porcentagens + paragrafo de motivação
+      removeHidden(container_barra_progresso);
+      removeHidden(porcentoBarra);
+      removeHidden(paragrafoMotivacao);
+
       // # Após 6 segundos...
       setTimeout(() => {
-  
+
         /*
           Objetivo:
           - Remover a classe hidden dos botões de ir para o trabalho e de ficar em casa
           - Remover a classe hidden da imagem do médico pilgrin na casa dele
           - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
         */
-        btn_irTrabalhar.classList.remove('hidden');
-        btn_FicarEmCasa.classList.remove('hidden');
-        imagem_dr.classList.remove('hidden');
-        h1.classList.remove('hidden');
-
-
+        removeHidden(btn_irTrabalhar);
+        removeHidden(btn_FicarEmCasa);
+        removeHidden(imagem_dr);
+        removeHidden(h1);
         /*
           Objetivo:
           - Remover a barra de progresso
           - Remover o paragrafo de motivação
           - Remover a foto do Dr. Pilgrin no trabalho
         */
-        container_barra_progresso.classList.add('hidden');
-        paragrafoMotivacao.classList.add('hidden');
-        fotoDrNoTrabalho.classList.add('hidden');
+        addHidden(container_barra_progresso);
+        addHidden(paragrafoMotivacao);
+        addHidden(fotoDrNoTrabalho);
 
         /*
           Objetivo:
@@ -439,62 +450,51 @@ setTimeout(() => {
           decrementarDias() que é responsável por decrementar os dias
         */
         decrementarDias();
-  
+
       },6000)
     }
     // # DIA 5 INDO AO TRABALHO
     if(contadorTrabalho == 5 && contadorFicarEmCasa == 0){
       console.log('Foi ao trabalho pela quinta vez');
+  
       /*
         Objetivo:
         - Usuário escolheu ir trabalhar, portanto os elementos que estavam disponíveis
         precisam desaparecer, para isso vou adicionar a classe hidden neles
       */
-        btn_irTrabalhar.classList.add('hidden');
-        imagem_dr.classList.add('hidden');
-        h1.classList.add('hidden');
-        btn_FicarEmCasa.classList.add('hidden');
-  
-  
-        /*
-          Objetivo:
-          - Mostrar a barra de progresso que a cura do corona está chegando
-          - Adicionar no array o progresso +20%
-          - Adicionar palavra de motivação ao usuário escolher ir trabalhar
-          - Aumentar o atributo do personagem
-          - Decrementar o dia
-  
-          ** IMPORTANTE **
-          A barra de progresso tem uma animação de 5 segundos, então após 6seg eu vou liberar de novo
-          os botões de ir ao trabalho ou de ficarem em casa para serem clicados novamente
-        */
-        
-        // Removendo a classe Hidden para que a barra apareça na tela
-        container_barra_progresso.classList.remove('hidden');
-  
-        
-        // Adicionando classe hidden, para que os 20% | 40% | 60% | 80% desapareça
-        vinte_porcento.classList.add("hidden");
-        quarenta_porcento.classList.add("hidden");
-        sessenta_porcento.classList.add("hidden");
-        oitenta_porcento.classList.add("hidden");
-        
-        // Tirando a classe hidden, para que o <h2> com 80% apareça
-        cem_porcento.classList.remove("hidden");
+      addHidden(btn_irTrabalhar);
+      addHidden(imagem_dr);
+      addHidden(h1);
+      addHidden(btn_FicarEmCasa);
+      /*
+        Objetivo:
+        - Mostrar a barra de progresso que a cura do corona está chegando
+        - Adicionar no array o progresso +20%
+        - Adicionar palavra de motivação ao usuário escolher ir trabalhar
+        - Aumentar o atributo do personagem
+        - Decrementar o dia
 
-        // Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
-        paragrafoMotivacao.innerText = "Você foi ao trabalho e avançou 100% na pesquisa ! parabéns"
-        paragrafoMotivacao.classList.remove("hidden");
+        ** IMPORTANTE **
+        A barra de progresso tem uma animação de 5 segundos, então após 6seg eu vou liberar de novo
+        os botões de ir ao trabalho ou de ficarem em casa para serem clicados novamente
+      */
   
-        // Aumentando atributos do personagem
-        drPilgrin.aumentarAtributos();
-  
-        // Aumentando progresso do array
-        progresso.push('100%');
-  
-  
-        // # Após 6 segundos...
-        setTimeout(() => {
+      // Aumentando progresso do array
+      aumentarProgresso(100);
+            
+      // Aumentando atributos do personagem
+      drPilgrin.aumentarAtributos();
+      
+      // Palavra de motivação ao usuário escolher ir trabalhar, mostrando que aumentou a % da barra
+      avancouNaPesquisa()
+
+      // Mostrando a barra de progresso + as porcentagens + paragrafo de motivação
+      removeHidden(container_barra_progresso);
+      removeHidden(porcentoBarra);
+      removeHidden(paragrafoMotivacao);
+
+      // # Após 6 segundos...
+      setTimeout(() => {
 
         /*
           Objetivo:
@@ -502,33 +502,35 @@ setTimeout(() => {
           - Remover a classe hidden da imagem do médico pilgrin na casa dele
           - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
         */
-        btn_irTrabalhar.classList.remove('hidden');
-        btn_FicarEmCasa.classList.remove('hidden');
-        imagem_dr.classList.remove('hidden');
-        h1.classList.remove('hidden');
-
-
+        removeHidden(btn_irTrabalhar);
+        removeHidden(btn_FicarEmCasa);
+        removeHidden(imagem_dr);
+        removeHidden(h1);
         /*
           Objetivo:
           - Remover a barra de progresso
           - Remover o paragrafo de motivação
           - Remover a foto do Dr. Pilgrin no trabalho
         */
-        container_barra_progresso.classList.add('hidden');
-        paragrafoMotivacao.classList.add('hidden');
-        fotoDrNoTrabalho.classList.add('hidden');
+        addHidden(container_barra_progresso);
+        addHidden(paragrafoMotivacao);
+        addHidden(fotoDrNoTrabalho);
 
         /*
           Objetivo:
           - O usuário escolheu ir ao trabalho, portanto já se passou um dia, então vou invocar a função
           decrementarDias() que é responsável por decrementar os dias
         */
-        decrementarDias();  
-      },6000)
+        decrementarDias();
+
+      },6000);
+
     }
+
   });
 
-  
+
+
   /*
     # Case para quando o usuário NÃO for trabalhar
     - Se ele clicar no botão ficar em casa, o contadorFicarEmCasa vai incrementar em 1, então isso mostra
@@ -565,6 +567,17 @@ setTimeout(() => {
       let mollyPhoto = document.getElementById('mollyPhoto');
       mollyPhoto.classList.remove("hidden");
 
+
+      /*
+        Objetivo: Ao clicar na foto ler jornal, a imagem do primeiro dia de falta
+        no emprego deve aparecer
+      */
+      let iconeJornal = document.getElementById('icone-jornal');
+      let primeiroDiaFalta = document.getElementById('primeiro-dia-falta');
+
+      iconeJornal.addEventListener('click', function(){
+        primeiroDiaFalta.classList.remove('hidden');
+      })
   
   
       /*

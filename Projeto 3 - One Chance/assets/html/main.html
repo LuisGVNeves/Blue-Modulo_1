@@ -65,15 +65,17 @@
       <!--Frases motivadoras pra quando usuario for pro trabalho-->
       <p id="motivacao" class="hidden">aa</p>
       
-      <!--Barra de progresso-->
+      <!--Barra de progresso container-->
       <div class="barra-progresso">
+
+        <!--Corpo da barra-->
         <div class="carregamento">
-          <h2 class="hidden" id="vinte-porcento">20%</h2>
-          <h2 class="hidden" id="quarenta-porcento">40%</h2>
-          <h2 class="hidden" id="sessenta-porcento">60%</h2>
-          <h2 class="hidden" id="oitenta-porcento">80%</h2>
-          <h2 class="hidden" id="cem-porcento">100%</h2>
-        </div> 
+        
+          <!--Numero barra de progresso-->
+          <h2 class="hidden" id="porcento-numero"></h2>
+        
+        </div>
+
       </div>
     
       <!--Foto que aparece quando o usuário vai trabalhar-->
@@ -91,11 +93,16 @@
       <!--Imagem com a filha dele-->
       <img src="../img/molly.png" alt="moly one chance" id="mollyPhoto">
 
+
       <!--Dia 1 ficando em casa-->
       <div>
         <!--Icone jornal-->
-        <img src="../img/newsIcon.png" alt="icone jornal" id="icone-jornal">
-        <img src="../img/papper1.png" alt="papel one chance" class="hidden">
+        <div id="icone-jornal">
+          <img src="../img/newsIcon.png" alt="icone jornal" width="50px">
+          <span id="ler-jornal">Ler jornal</span>
+        </div>
+
+        <img src="../img/papper1.png" alt="papel one chance" class="hidden" id="primeiro-dia-falta">
       </div>
 
       
