@@ -92,6 +92,7 @@ setTimeout(() => {
       dia.innerText = 'dia';
     }
     if(contadorFicarEmCasa == 5 || contadorTrabalho == 5){
+      // Concatenei o texto assim para não perder o efeito de digitação no css
       h1.innerText = 'A '+' cura '+' do ' + ' corona '+ ' virus'+ ' foi'+ ' alcançada'+ ' !'+ ' Parabéns'+ ' Dr'+' .'+ ' Pilgrin';
     }
   }
