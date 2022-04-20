@@ -17,6 +17,7 @@ if(pergunta == 'Nao'){
 }
 else{
   rodadas = prompt('Quantas rodadas você quer fazer? ');
+  // # Ignorar, já utilizei .toUpperCase na saída dos prompt pra não dar erro
   console.log('\n');
   console.log('Antes de iniciar o jogo, se atente sempre a escrever em letra maiuscula nas jogadas P | PP | T');
   console.log('\n');
@@ -162,5 +163,6 @@ do {
   else{
     rodadas = prompt('Quantas rodadas você quer fazer? ');
   }
+  
 }while(pergunta !== 'Nao');
 

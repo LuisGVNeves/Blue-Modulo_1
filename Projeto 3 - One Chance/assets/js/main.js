@@ -1,6 +1,5 @@
 // # Objetivo: Assim que a página carregar, vai executar a função de tocar Música
 window.addEventListener("load", function(){
-
   tocarMusicas()
 });
 
@@ -13,7 +12,6 @@ function tocarMusicas(){
     let somPrincipal = new Audio('../sound/principal.mp3');
     somPrincipal.play();
   },3000)
-
 }
 
 // # Personagem principal = Objeto Dr.Pilgrin
@@ -76,7 +74,7 @@ setTimeout(() => {
   let porcentoBarra = document.getElementById('porcento-numero');
 
 
-  // Progresso do usuário
+  // # Progresso do usuário que vai ser incrementado toda vez que ele ir pro trabalho
   let progresso = [];
   
   /*
@@ -108,6 +106,46 @@ setTimeout(() => {
     }
   }
 
+  // # Funcao adicionar classe hidden para esconder os elementos
+  function addHidden(elemento){
+    elemento.classList.add('hidden');
+  }
+  
+  // # Função remover classe hidden para aparecer os elementos
+  function removeHidden(elemento){
+    elemento.classList.remove('hidden');
+  }
+  
+  // # Função para incrementar progresso no array
+  function aumentarProgresso(num){
+    return progresso.push(num);
+  }
+  
+  // # Função para mostrar o quanto o usuário avançou na pesquisa
+  function avancouNaPesquisa(){
+    for(let i=0; i< progresso.length; i++){
+      if(progresso[i] == 20){
+        paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 20% na pesquisa ! parabéns`;
+        porcentoBarra.innerText = '20%';
+      }
+      if(progresso[i] == 40){
+        paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 40% na pesquisa ! parabéns`;
+        porcentoBarra.innerText = '40%';
+      }
+      if(progresso[i] == 60){
+        paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 60% na pesquisa ! parabéns`;
+        porcentoBarra.innerText = '60%';
+      }
+      if(progresso[i] == 80){
+        paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 80% na pesquisa ! parabéns`;
+        porcentoBarra.innerText = '80%';
+      }
+      if(progresso[i] == 100){
+        paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 100% na pesquisa ! parabéns`;
+        porcentoBarra.innerText = '100%';
+      }
+    }
+  }
 
   /*
     # Case para quando o usuário for trabalhar
@@ -119,48 +157,6 @@ setTimeout(() => {
 
     // Incrementação da variável que indica que usuário clicou no botão de ir trabalhar
     contadorTrabalho++;
-    
-    // # Funcao adicionar classe hidden para esconder os elementos
-    function addHidden(elemento){
-      elemento.classList.add('hidden');
-    }
-    
-    // # Função remover classe hidden para aparecer os elementos
-    function removeHidden(elemento){
-      elemento.classList.remove('hidden');
-    }
-    
-    // # Função para incrementar progresso no array
-    function aumentarProgresso(num){
-      return progresso.push(num);
-    }
-    
-    // # Função para mostrar o quanto o usuário avançou na pesquisa
-    function avancouNaPesquisa(){
-      for(let i=0; i< progresso.length; i++){
-        if(progresso[i] == 20){
-          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 20% na pesquisa ! parabéns`;
-          porcentoBarra.innerText = '20%';
-        }
-        if(progresso[i] == 40){
-          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 40% na pesquisa ! parabéns`;
-          porcentoBarra.innerText = '40%';
-        }
-        if(progresso[i] == 60){
-          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 60% na pesquisa ! parabéns`;
-          porcentoBarra.innerText = '60%';
-        }
-        if(progresso[i] == 80){
-          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 80% na pesquisa ! parabéns`;
-          porcentoBarra.innerText = '80%';
-        }
-        if(progresso[i] == 100){
-          paragrafoMotivacao.innerText = `Você foi ao trabalho e avançou 100% na pesquisa ! parabéns`;
-          porcentoBarra.innerText = '100%';
-        }
-      }
-    }
-    
 
     // # DIA 1 INDO AO TRABALHO
     if(contadorTrabalho == 1){
@@ -537,9 +533,11 @@ setTimeout(() => {
     que o usuário ficou em casa 1 vez, cada vez que esse botão é clicado, essa variável é incrementada.
   */
   let contadorFicarEmCasa = 0;
-   
-  // # Frase pra quando usuário escolher ficar em casa
+  
+  // # container de qnd usuário fica em casa
   let ficarEmCasa_container = document.querySelector('.ficar-emCasa-container');
+  
+  // # Frase pra quando usuário escolher ficar em casa
   let ficarEmCasa_frase = document.getElementById('ficarEmCasa-frase');
 
   btn_FicarEmCasa.addEventListener('click', function(){
@@ -554,29 +552,27 @@ setTimeout(() => {
       - Usuário escolheu ficar em casa, portanto os elementos que estavam disponíveis
       precisam desaparecer, para isso vou adicionar a classe hidden neles
       */
-      btn_irTrabalhar.classList.add('hidden');
-      btn_FicarEmCasa.classList.add('hidden');
-      imagem_dr.classList.add('hidden');
-      h1.classList.add('hidden');
+      addHidden(btn_irTrabalhar);
+      addHidden(btn_FicarEmCasa);
+      addHidden(imagem_dr);
+      addHidden(h1);
 
-      // Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
-      ficarEmCasa_container.classList.remove('hidden');
+      // # Removendo a classe Hidden para que a palavra de Motivação <p> apareça na tela
+      removeHidden(ficarEmCasa_container);
       ficarEmCasa_frase.innerText = "Você" +" ficou" +" em" +" casa" +" com sua filha molly," +" ela" +" está" +" muito feliz," + " alguns" + " casos"+ " de" + " morte" + " se" + " alastram pelo país.";
-        
-      // Adicionando a foto da molly feliz
+
+      
+      // # Adicionando a foto da molly feliz tirando a classe hidden
       let mollyPhoto = document.getElementById('mollyPhoto');
-      mollyPhoto.classList.remove("hidden");
+      removeHidden(mollyPhoto);
 
 
-      /*
-        Objetivo: Ao clicar na foto ler jornal, a imagem do primeiro dia de falta
-        no emprego deve aparecer
-      */
+      // # Objetivo: Ao clicar no icone jornal, a imagem do primeiro dia de falta no emprego deve aparecer
       let iconeJornal = document.getElementById('icone-jornal');
       let primeiroDiaFalta = document.getElementById('primeiro-dia-falta');
 
       iconeJornal.addEventListener('click', function(){
-        primeiroDiaFalta.classList.remove('hidden');
+        removeHidden(primeiroDiaFalta);
       })
   
   
@@ -589,7 +585,6 @@ setTimeout(() => {
       */
         
 
-
       // Aumentando atributos do personagem
       drPilgrin.diminuirStamina();
 
@@ -597,31 +592,27 @@ setTimeout(() => {
       progresso.push('-20%');
   
   
-      /* # Após 3 segundos...
+      /* # Após 3 segundos...*/
       setTimeout(() => {
-  
         /*
           Objetivo:
           - Remover a classe hidden dos botões de ir para o trabalho e de ficar em casa
           - Remover a classe hidden da imagem do médico pilgrin na casa dele
           - Remover a classe hidden do principal titulo da página "Em seis dias, todas as células ...."
-       
-        btn_irTrabalhar.classList.remove('hidden');
-        btn_FicarEmCasa.classList.remove('hidden');
-        imagem_dr.classList.remove('hidden');
-        h1.classList.remove('hidden');
-      
-
+        */
+        removeHidden(btn_irTrabalhar);
+        removeHidden(btn_FicarEmCasa);
+        removeHidden(imagem_dr);
 
         /*
           Objetivo:
           - O usuário escolheu ficar em casa, portanto já se passou um dia, então vou invocar a função
           decrementarDias() que é responsável por decrementar os dias
-        
+        */
         decrementarDias();
   
       },3000)
-      */    
+          
     }
     // # Ficou em casa segundo dia
     if(contadorFicarEmCasa == 2){
