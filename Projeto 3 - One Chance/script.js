@@ -2,17 +2,17 @@
 const prompt = require('prompt-sync')();
 
 // # Pergunta pra iniciar game
-console.log('\n');
+console.log('');
 let iniciarJogo = prompt('Você deseja iniciar o Jogo One Chance ?').toUpperCase();
-console.log('\n');
+console.log('');
 
 
 let nomeCientista = prompt('Qual o nome do cientista?');
-console.log('\n');
+console.log('');
 
 
 // # Objeto cientista
-const cientista ={
+const cientista = {
   nome: nomeCientista,
   alturaCientista: 1.80,
   pesoCientista: 80,
@@ -28,38 +28,49 @@ const cientista ={
 
   // # Métodos que vão incrementar ou decrementar os atributos do cientista, caso usuário escolha uma opção "errada"
   decrementarSaude: function(valor){
-    this.saude -= valor;
-    console.log(`\n💊Saúde do ${cientista.nome} - ${this.saude}`)
-  },
-  decrementarFelicidade: function(valor = 5){
-    if(this.felicidade >= 100){
-      this.felicidade -= valor;
-      console.log(`🎉Felicidade ${cientista.nome} - ${this.felicidade}`);
+    if(this.saude <= 100){
+      this.saude -= valor;
     }
     else{
-      console.log(`Dr.${cientista.nome} atingiu o máximo da infelicidade`);
+      this.saude = 100;
     }
   },
   decrementarCriatividade: function(valor){
-    this.criatividade -= valor;
-    console.log(`💡Criatividade ${cientista.nome} - ${this.criatividade}`);
+    if(this.criatividade <= 100){
+      this.criatividade -= valor;
+      console.log(`💡Criatividade ${cientista.nome} - ${this.criatividade}`);
+    }
+    else{
+      console.log(`💡Criatividade atingiu o menor nível do Dr.${cientista.nome}  -${this.criatividade}`);
+    }
   },
   decrementarDinheiro: function(valor){
     this.dinheiro -= valor;
     return `Você gastou - ${valor}R$`;
   },
   aumentarDepressao: function(valor){
-    if(this.depressao >= 100 || this.ansiedade >= 100){
+    if(this.depressao >= 100){
       console.log(`\nDr ${cientista.nome} atingiu o seu limite de 😔Depressão: ${this.depressao} % `);
+      this.depressao = 100;
+      this.felicidade = 0;
     }else{
       this.depressao += valor;
+      this.felicidade -= valor;
+    }
+
+  },
+  aumentarAnsiedade: function(valor){
+    if(this.ansiedade >= 100){
+      console.log(`\nDr ${cientista.nome} atingiu o seu limite de 😔Ansiedade: ${this.ansiedade}% `);
+      this.ansiedade = 100;
+    }else{
       this.ansiedade += valor;
-      console.log(`\n😔Depressão ${cientista.nome} + ${this.depressao}\n Ansiedade ${cientista.nome} + ${this.ansiedade}`);
     }
   },
   aumentarGordura: function(fat){
     this.gordura += fat;
-    console.log(`🍫 ${cientista.nome} ficou mais gordo +${this.gordura}`);
+    this.pesoCientista += fat;
+    console.log(`🍫 ${cientista.nome} ficou mais gordo +${fat}KG`);
   },
   // # Métodos de array reduce pra transformar todos os números em um só, pra calcular a cura da vacina
   aumentarCura: function(valor){
@@ -73,11 +84,14 @@ const cientista ={
     return `Progresso da cura: ${totalCura}% ⌛`;
   },
   aumentarFelicidade: function(valor){
-    this.felicidade += valor;
-    return `Dr.${cientista.nome} está mais feliz + ${this.felicidade} 🤗`;
+    if(this.felicidade <= 100){
+      this.felicidade += valor;
+      return `Dr.${cientista.nome} está mais feliz + ${this.felicidade} 🤗`;
+    }
+    else{
+      this.felicidade = 100;
+    }
   },
-
-
   // # Desistir de td
   desistir: function(){
     this.criatividade = 0;
@@ -109,7 +123,7 @@ let btnEntrarQuartoMolly;
 while(iniciarJogo == 'SIM'){
 
   // # Objetivo: Loop de 4 repetições para simular a passagem de tempo de 4 dias (posteriormente o 5  e 6 dias estão acoplados em outras funções)
-  for(let i = 0; i <= 6; i++){
+  for(let i = 0; i <= 4; i++){
     // # 1 Dia
     if(i == 1){
       console.log('\n');
@@ -188,6 +202,7 @@ while(iniciarJogo == 'SIM'){
   else{
     iniciarJogo = 'SIM';
   }
+
 }
 
 // # Função que mostra a DATA atual
@@ -242,91 +257,141 @@ function mostraData(i){
 function perguntasBasicas(i){
   if(i == 1){
     // # Mensagem inicial assim que usuário sai do quarto
-    console.log(`\x1b[31mEm seis dias todas as células do planeta morrerão Você tem uma chance!\x1b[0m`);
-    console.log('\n');
+    console.log(`\x1b[34m                                                    EM ${i + 5} DIAS TODAS AS CÉLULAS DO PLANETA MORRERÃO, VOCÊ TEM UMA CHANCE!                                                    \x1b[0m`);
+    console.log('');
 
+    // # Caracteristicas Dr.
+    console.log(`\x1b[30mCARACTERISTICAS ATUAIS: do Dr.${cientista.nome}\x1b[0m 
+    \n😔Depressão: ${cientista.depressao}    😥Ansiedade: ${cientista.ansiedade}    🎉Felicidade: ${cientista.felicidade}    💰Dinheiro: ${cientista.dinheiro}R$ \n\n🔟Peso: ${cientista.pesoCientista}    ⏱️ Progresso Cura: ${cientista.progressoCura}    💗Saúde: ${cientista.saude}    📆Dia: ${i}`);
+
+
+
+    console.log('\n\n\n');
     console.log(`Você acorda numa ${mostraData(i)} sai do seu quarto e encontra sua esposa, ela diz para você se apressar para não se atrasar em ir ao trabalho`);
-    console.log('\n');
+    console.log('');
 
     btnEntrarQuartoMolly = prompt('\x1b[32mVocê deseja ir ao quarto da sua filha Molly ? \x1b[0m').toUpperCase();
     if(btnEntrarQuartoMolly == 'SIM'){
-      console.log('\n');
+      console.log('');
       console.log(`Você entra no quarto da sua filha e ela pergunta se precisa ir pra escola hoje... Você diz que sim`);
-      console.log('\n');    
+      console.log('');    
     }
 
     btnEntrarBanheiro = prompt('\x1b[32mVocê deseja ir ao banheiro ? \x1b[0m').toUpperCase();
     if(btnEntrarBanheiro == 'SIM'){
-      console.log('\n');    
-      console.log(`Você entra no banheiro e da uma cagada`);
-      console.log('\n');    
+      console.log('');    
+      console.log(`Você entra no banheiro e da uma cagada | -2kg`);
+      cientista.pesoCientista -= 2;
+      console.log('');    
     }
     
   }    
   if(i == 2){
     // # Mensagem inicial assim que usuário sai do quarto
-    console.log(`\x1b[34mEm Cinco dias todas as células do planeta morrerão Você tem uma chance!\x1b[0m`);
-    console.log('\n');
+    console.log(`\x1b[34m                                                    EM ${i + 3} DIAS TODAS AS CÉLULAS DO PLANETA MORRERÃO, VOCÊ TEM UMA CHANCE!                                                    \x1b[0m`);
+    console.log('');
 
+
+    // # Caracteristicas Dr.
+    console.log(`\x1b[30mCARACTERISTICAS ATUAIS: do Dr.${cientista.nome}\x1b[0m 
+    \n😔Depressão: ${cientista.depressao}    😥Ansiedade: ${cientista.ansiedade}    🎉Felicidade: ${cientista.felicidade}    💰Dinheiro: ${cientista.dinheiro}R$ \n\n🔟Peso: ${cientista.pesoCientista}    ⏱️ Progresso Cura: ${cientista.progressoCura}  💗Saúde: ${cientista.saude}    📆Dia: ${i}`);
+  
+  
+  
+    console.log('\n\n\n');
     console.log(`\x1b[31mVocê acorda com um pesadelo estranho.. Hoje é ${mostraData(i)} \x1b[0m`);
-    console.log('\n');
+    console.log('');
 
     btnEntrarQuartoMolly = prompt('\x1b[32mVocê deseja ir ao quarto da sua filha Molly ? \x1b[0m').toUpperCase();
     if(btnEntrarQuartoMolly == 'SIM'){
-      console.log('\n');    
+      console.log('');    
       console.log(`Você entra no quarto da sua filha e ela fala que sua esposa está no banheiro..`);
-      console.log('\n');    
+      console.log('');    
     }
   
     btnEntrarBanheiro = prompt('\x1b[32mVocê deseja ir ao banheiro ? \x1b[0m').toUpperCase();
     if(btnEntrarBanheiro == 'SIM'){
-      console.log('\n');    
+      console.log('');    
       console.log(`Você entra no banheiro e sua esposa diz que o telefone tocou a manhã inteira querendo falar com você..Era seu trabalho`);
-      console.log('\n');    
+      console.log('');    
+      cientista.aumentarAnsiedade(10);
     }
   }
   if(i == 3){
     // # Mensagem inicial assim que usuário sai do quarto
-    console.log(`\x1b[31mEm quatro dias todas as células do planeta morrerão Você tem uma chance!\x1b[0m`);
-    console.log('\n');    
+    console.log(`\x1b[34m                                                    EM ${i + 2} DIAS TODAS AS CÉLULAS DO PLANETA MORRERÃO, VOCÊ TEM UMA CHANCE!                                                    \x1b[0m`);
+    console.log('');  
+    
+    
+    // # Caracteristicas Dr.
+    console.log(`\x1b[30mCARACTERISTICAS ATUAIS: do Dr.${cientista.nome}\x1b[0m 
+    \n😔Depressão: ${cientista.depressao}    😥Ansiedade: ${cientista.ansiedade}    🎉Felicidade: ${cientista.felicidade}    💰Dinheiro: ${cientista.dinheiro}R$ \n\n🔟Peso: ${cientista.pesoCientista}    ⏱️ Progresso Cura: ${cientista.progressoCura}  💗Saúde: ${cientista.saude}    📆Dia: ${i}`);
+    
 
-    console.log(`\x1b[31m Hoje ${mostraData(i)} Você levanta da cama e sua esposa pergunta se você precisa mesmo ir pro trabalho, já que está tudo fodido.\x1b[0m`);
-    console.log('\n');    
+    console.log('\n\n\n');
+    console.log(`\x1b[31m Hoje ${mostraData(i)} Você levanta da cama e sua esposa pergunta se você precisa mesmo ir pro trabalho, já que está tudo acabado.\x1b[0m`);
+    cientista.aumentarAnsiedade(20);
+    cientista.aumentarDepressao(30);
+    console.log('');    
+
+      
+    btnEntrarBanheiro = prompt('\x1b[32mVocê deseja ir ao banheiro ? \x1b[0m').toUpperCase();
+    if(btnEntrarBanheiro == 'SIM'){
+      console.log('');    
+      console.log(`Você entra no banheiro, se olha no espelho e bate uma crise de arrependimento do porquê você fez a vacina..`);
+      console.log('');    
+      cientista.aumentarAnsiedade(20);
+      cientista.aumentarDepressao(20);
+    }
 
     btnEntrarQuartoMolly = prompt('\x1b[32mVocê deseja ir ao quarto da sua filha Molly ? \x1b[0m').toUpperCase();
     if(btnEntrarQuartoMolly == 'SIM'){
-      console.log('\n');    
-      console.log(`Você entra no quarto da sua filha e ela pergunta o porque não precisa ir pra escola hoje..Você responde que é feriado para não dar medo nela`);
-      console.log('\n');    
+      console.log('');    
+      console.log(`Você entra no quarto da sua filha e ela pergunta o porque não precisa ir pra escola hoje?..`);
+      console.log('\n');
+
+      let resposta = prompt('Fale pra sua filha qualquer coisa para que ela entenda o porque ela não precisa ir para escola hoje: ');
+      console.log('');    
+    
+      if(resposta.length < 20){
+        console.log(`Sua filha não gostou da sua resposta porque você deu uma resposta menor que 20 letras.. Agora você tem que levar ela pra escola mesmo assim. Você gastou 100R$ de gasolina\n`);
+        cientista.decrementarDinheiro(100);
+        cientista.aumentarAnsiedade(5);
+      }
+      else{
+        console.log(`Sua filha aceitou sua resposta e ficou em casa.\n`);
+        cientista.aumentarAnsiedade(5);
+      }
     }
-  
-    btnEntrarBanheiro = prompt('\x1b[32mVocê deseja ir ao banheiro ? \x1b[0m').toUpperCase();
-    if(btnEntrarBanheiro == 'SIM'){
-      console.log('\n');    
-      console.log(`Você entra no banheiro, se olha no espelho e bate uma crise de arrependimento do porquê você fez a vacina..`);
-      console.log('\n');    
-    }
+
   }
   if(i == 4){
     // # Mensagem inicial assim que usuário sai do quarto
-    console.log(`\x1b[31mEm três dias todas as células do planeta morrerão Você tem uma chance!\x1b[0m`);
-    console.log('\n');
+    console.log(`\x1b[34m                                                    EM ${i + 2} DIAS TODAS AS CÉLULAS DO PLANETA MORRERÃO, VOCÊ TEM UMA CHANCE!                                                    \x1b[0m`);
+    console.log('');
     
+    
+    // # Caracteristicas Dr.
+    console.log(`\x1b[30mCARACTERISTICAS ATUAIS: do Dr.${cientista.nome}\x1b[0m 
+    \n😔Depressão: ${cientista.depressao}    😥Ansiedade: ${cientista.ansiedade}    🎉Felicidade: ${cientista.felicidade}    💰Dinheiro: ${cientista.dinheiro}R$ \n\n🔟Peso: ${cientista.pesoCientista}    ⏱️ Progresso Cura: ${cientista.progressoCura}  💗Saúde: ${cientista.saude}    📆Dia: ${i}`);
+      
+
+    console.log('\n\n\n');
     console.log(`\x1b[31m Hoje ${mostraData(i)} Você levanta da cama depressivo.\x1b[0m`);
-    console.log('\n');
+    console.log('');
 
     btnEntrarQuartoMolly = prompt('\x1b[32mVocê deseja ir ao quarto da sua filha Molly ? \x1b[0m').toUpperCase();
     if(btnEntrarQuartoMolly == 'SIM'){
-      console.log('\n');    
+      console.log('');    
       console.log(`Você entra no quarto da sua filha e ela está dormindo`);
-      console.log('\n');    
+      console.log('');    
     }
   
     btnEntrarBanheiro = prompt('\x1b[32mVocê deseja ir ao banheiro ? \x1b[0m').toUpperCase();
     if(btnEntrarBanheiro == 'SIM'){
-      console.log('\n');    
+      console.log('');    
       console.log(`Você entra no banheiro, e toma um banho..`);
-      console.log('\n');    
+      console.log('');    
     }
   }
 }
@@ -334,73 +399,80 @@ function perguntasBasicas(i){
 // # Funções que são invocadas ao decorrer da história
 function irPrimeiroDia(i){
   console.log(`
-  Você saindo de casa olha o jornal e descobre que seu rosto está no jornal! \x1b[31m[NOTÍCIA]: "\x1b[0m Hoje ${mostraData(i)} um time de cientistas liderados pelo Dr.${cientista.nome} conseguiram inventar uma vacina que cura o câncer. Essa vacina consegue destruir as células cancerigenas e também poderá ser usada para destruir outras células ruins do corpo humano. A cura é chamada atualmente de E48K15. Chegando no laboratório, todos te aplaudem, você se sente muito orgulhoso de ter feito algo grandioso para o mundo, porém, entrando na sua sala
-  \x1b[31mvocê descobre algo errado nos testes.. Você acha que é apenas um erro bobo e ignora\x1b[0m.`);
-  console.log('\n');
+  \nVocê saindo de casa olha o jornal e descobre que seu rosto está no jornal!
+  \n\x1b[31m[NOTÍCIA]:\x1b[0m "Hoje ${mostraData(i)} um time de cientistas liderados pelo Dr.${cientista.nome} conseguiram inventar uma vacina que cura o câncer. 
+  \nEssa vacina consegue destruir as células cancerigenas e também poderá ser usada para destruir outras células ruins do corpo humano. 
+  \nA cura é chamada atualmente de E48K15. 
+  \n\n...Chegando no laboratório, todos te aplaudem, você se sente muito orgulhoso de ter feito algo grandioso para o mundo, porém, entrando na sua sala \x1b[31mvocê descobre algo errado nos testes.. Você acha que é apenas um erro bobo e ignora\x1b[0m.`);
+  console.log('');
+  cientista.aumentarFelicidade(50);
 }
+
 function ficarPrimeiroDia(i){
-  console.log(`
-  Hoje ${mostraData(i)} você preferiu ficar em casa com sua familia relaxando, você diz para sua esposa que hoje vai ficar em casa com eles.. Sua esposa e filha ficaram felizes. Você foi comprar pão e viu que no jornal a frente da sua casa, estava com seu rosto, parabenizando você e sua equipe pela vacina E48K15 cura do câncer.
-  
-  ${cientista.aumentarFelicidade(10)}`);
-  console.log('\n');
+  console.log(`\nHoje ${mostraData(i)} você preferiu ficar em casa com sua familia relaxando, você diz para sua esposa que hoje vai ficar em casa com eles..
+  \nSua esposa e filha ficaram felizes. Você foi comprar pão e viu que no jornal a frente da sua casa, estava com seu rosto, parabenizando você e sua equipe pela vacina E48K15 cura do câncer.
+  \n${cientista.decrementarDinheiro(30)} do pão`);
+  console.log('');
 }
+
 function irSegundoDia(i){
-  console.log(`
-  Você saindo de casa olha o jornal e descobre que seu rosto está no jornal de novo.. 
+  console.log(`\nVocê saindo de casa olha o jornal e descobre que seu rosto está no jornal de novo..
+  \n\n \x1b[31m[NOTICIA:]\x1b[0m
+  \n"Hoje ${mostraData(i)} a cura do câncer descoberta no início desta semana foi considerada "além de mortal", de acordo com as autoridades:\n \x1b[31m E48K15 não para apenas em matar células cancerígenas, a droga continua a matar todas as outras células vivas não apenas no corpo humano, mas de todo o planeta Terra. Se a droga à base de gás fosse usada, poderia causar danos catastróficos à terra.\x1b[0m
+  \n \x1b[31mAgora, você entendeu o porque das ligações todas...\x1b[0m \n
+  \n..Chegando no trabalho, o cientista chefe que trabalha com você avisa que toda a equipe está fodida por causa da vacina..\n`)
   
-  \x1b[31m[NOTICIA:]\x1b[0m  Hoje ${mostraData(i)} a cura do câncer descoberta no início desta semana foi considerada "além de mortal", de acordo com as autoridades:
-    \x1b[31m E48K15 não para apenas em matar células cancerígenas, a droga continua a matar todas as outras células vivas não apenas no corpo humano, mas de todo o planeta Terra. Se a droga à base de gás fosse usada, poderia causar danos catastróficos à terra.\x1b[0m
-  
-  \x1b[31mAgora, você entendeu o porque das ligações todas...\x1b[0m
-
-  Chegando no trabalho, o cientista chefe que trabalha com você avisa que toda a equipe está fodida por causa da vacina, você vai ao telhado tomar um ar, e vê um dos cientistas que trabalharam com você na vacina.. Ele no momento de desespero, deu um fim a vida dele por medo do que a vacina poderia causar ao mundo e a ele. O cientista chefe que trabalha com você avisou que amanhã vocês vão fazer uma conferência internacional explicando o erro da vacina, para toda população.`);
-
-  cientista.aumentarDepressao(10);
-  cientista.decrementarFelicidade(10);
-
+  let irAoTelhado = prompt('Ir ao telhado fumar um cigarrinho pra relaxar a mente ? ').toUpperCase();
+  if(irAoTelhado == 'SIM'){
+    console.log(`\nVocê vai ao telhado tomar um ar e fumar um cigarrets, e vê um dos cientistas que trabalharam com você na vacina.. 
+    \nEle no momento de desespero, deu um fim a vida dele por medo do que a vacina poderia causar ao mundo e a ele.`);
+    cientista.aumentarDepressao(20);
+    cientista.aumentarAnsiedade(20);
+  }
+  else{
+    console.log(`\nO cientista chefe que trabalha com você avisou que amanhã vocês vão fazer uma conferência internacional explicando o erro da vacina, para toda população.
+    você ouve um barulho no telhado.. Seu colega que ajudou na vacina acaba de cometer aquilo.. \n`);
+    cientista.aumentarDepressao(20);
+    cientista.aumentarAnsiedade(20);
+  }
 }
-function ficarSegundoDia(i){
-  console.log(`Hoje ${mostraData(i)} Sua esposa te alertou que o seu time de cientistas estavam te ligando a manhã toda, mas você achou que eles estavam enchendo seu saco para fazer uma comemoração sobre sua vacina, por isso você nem retornou as ligações.. Você decidiu ficar em casa e fazer brownies com sua filha Molly assim que ela chegasse da escola...`);
 
-  console.log('\n');
-  
+function ficarSegundoDia(i){
+  console.log(`
+  \nHoje ${mostraData(i)} Sua esposa te alertou que o seu time de cientistas estavam te ligando a manhã toda, mas você achou que eles estavam enchendo seu saco para fazer uma comemoração sobre sua vacina, por isso você nem retornou as ligações..
+  \nVocê decidiu ficar em casa e fazer brownies com sua filha Molly assim que ela chegasse da escola...`);
+
   let buscarMolly = prompt('Ir buscar sua filha Molly? ').toUpperCase();
-  
-  console.log('\n');
+  console.log('');
 
   if(buscarMolly == 'SIM'){
-    console.log(`Você passou no mercado para comprar os ingredientes para fazer os Brownies, e buscou sua filha Molly na escola.
-    
+    console.log(`
+    \nVocê passou no mercado para comprar os ingredientes para fazer os Brownies, e buscou sua filha Molly na escola.
     ${cientista.aumentarFelicidade(10)}
-    ${cientista.decrementarDinheiro(30)}
+    ${cientista.decrementarDinheiro(120)}
     `);
   }
   if(buscarMolly != 'SIM'){
-    console.log(`Você escolheu não ir buscar a Molly, porém, sua esposa te obrigou e você teve que ir mesmo assim. No caminho você passou no mercado para comprar os ingredientes para fazer Brownies com sua filha`);
+    console.log(`
+    \nVocê escolheu não ir buscar a Molly, porém, sua esposa te obrigou e você teve que ir mesmo assim. 
+    \nNo caminho você passou no mercado para comprar os ingredientes para fazer Brownies com sua filha
+    ${cientista.decrementarDinheiro(120)}
+    `);
     
-    cientista.decrementarFelicidade(5)
-    cientista.decrementarDinheiro(30)
   }
 
   console.log(`
-  Você voltando pra casa após buscar sua filha Molly na escola, olha o jornal que está em frente a sua casa e se assusta com a \x1b[31m[NOTICIA:]\x1b[0m 
-  A cura do câncer descoberta no início desta semana foi considerada "além de mortal", de acordo com as autoridades:
-     \x1b[31m E48K15 não para apenas em matar células cancerígenas, a droga continua a matar todas as outras células vivas não apenas no corpo humano, mas de todo o planeta Terra. 
-      
-  Se a droga à base de gás fosse usada, poderia causar danos catastróficos à terra.\x1b[0m
-  
-  \x1b[31m Agora, você entendeu o porque das ligações todas...\x1b[0m`);
+  \nVocê voltando pra casa após buscar sua filha Molly na escola, olha o jornal que está em frente a sua casa e se assusta com a \x1b[31m[NOTICIA:]\x1b[0m " A cura do câncer descoberta no início desta semana foi considerada "além de mortal", de acordo com as autoridades:\n \x1b[31m E48K15 não para apenas em matar células cancerígenas, a droga continua a matar todas as outras células vivas não apenas no corpo humano, mas de todo o planeta Terra.\n   
+  \nSe a droga à base de gás fosse usada, poderia causar danos catastróficos à terra.\x1b[0m\n \x1b[31m Agora, você entendeu o porque das ligações todas...\x1b[0m`);
 
   console.log('\n');
 
   console.log(`
-  00:00h você recebeu uma ligação e descobriu que um dos cientistas que trabalha com você, cometeu um ato contra sua própria vida, no telhado, 
-  por conta das repercussões da vacina.
-  
-  O seu amigo cientista chefe, disse que amanhã vocês vão fazer uma conferência internacional explicando o erro da vacina, para toda população.
+  \n00:00h você recebeu uma ligação e descobriu que um dos cientistas que trabalha com você, cometeu um ato contra sua própria vida, no telhado,por conta das repercussões da vacina.
+  \nO seu amigo cientista chefe, disse que amanhã vocês vão fazer uma conferência internacional explicando o erro da vacina, para toda população.
   `);
 }
+
 function irTerceiroDia(i){
   console.log(`
   Hoje ${mostraData(i)} Você saindo de casa extremamente ansioso, de praxe vai ler o jornal de novo:
@@ -417,7 +489,7 @@ function irTerceiroDia(i){
     
   Ou..
   
-  \x1b[35mVocê pode voltar para casa\x1b[0m`
+  \x1b[35mVocê pode voltar para casa\x1b[0m \n`
   
   );
   /*
@@ -432,7 +504,6 @@ function irTerceiroDia(i){
     console.log('Você voltou para casa e ficou com sua esposa que tinha falado que já estava tudo fodido.');
     console.log('\n');
     cientista.aumentarDepressao(30);
-    cientista.decrementarFelicidade(30);
     cientista.decrementarSaude(30);
   }
   if(ofertaBruce == 'SIM'){
@@ -465,14 +536,13 @@ function irQuartoDia(i){
   console.log(`
   \nHoje ${mostraData(i)} Os cientistas previram que até a manhã de amanhã, metade da população humana que estava viva na segunda-feira estará morta. 
   
-  Equipes de cientistas de todo o mundo ainda estão trabalhando em uma cura. 
+  \nEquipes de cientistas de todo o mundo ainda estão trabalhando em uma cura. 
   
-  Protestos estão ocorrendo em todo o mundo e saques em massa estão a todo vapor.
+  \nProtestos estão ocorrendo em todo o mundo e saques em massa estão a todo vapor.
 
-  Você saindo de casa, vê que a sua equipe de cientistas restantes estão na sua porta, e falaram que precisa de você agora no laboratório.. 
+  \nVocê saindo de casa, vê que a sua equipe de cientistas restantes estão na sua porta, e falaram que precisa de você agora no laboratório.. 
   
-  \x1b[33mPorém, eles deram a opção de você ir ou ficar em casa\x1b[0m \n
-  
+  \n \x1b[33mPorém, eles deram a opção de você ir ou ficar em casa\x1b[0m \n
   `);
 
   let irComSuaEquipe = prompt('Ir ao trabalho ? ').toUpperCase();
@@ -484,7 +554,6 @@ function irQuartoDia(i){
 
     cientista.aumentarGordura(10);
     cientista.aumentarDepressao(10);
-    cientista.decrementarFelicidade(1);
     cientista.decrementarSaude(10);
 
     // # 5 Dia
@@ -757,7 +826,6 @@ function irQuintoDia(i){
 
   console.log(`\n\x1b[31mVocê procura sua esposa e sua filha pela casa e descobre que elas faleceram graças a sua vacina.. Você passa o dia todo deprimido ouvindo musica.\x1b[0m`);
   cientista.aumentarDepressao(100);
-  cientista.decrementarFelicidade(100);
 
 
   // #6 Dia
