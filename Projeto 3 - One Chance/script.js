@@ -637,8 +637,7 @@ function irQuartoDia(i){
         
         Hoje ${mostraData(i + 1)} \x1b[33m é o dia em que todas as células morrerão..\x1b[0m`);
 
-        cientista.progressoCura(1);
-
+        cientista.aumentarCura(1);
       }
       else{
         console.log(`
@@ -646,7 +645,7 @@ function irQuartoDia(i){
         
         Ele está com depressão não conseguiria mais ir ao trabalho.. Hoje ${mostraData(i + 1)} é o dia em que todas as células morrerão..`);
       
-        cientista.progressoCura(1);
+        cientista.aumentarCura(1);
       }
 
     }
