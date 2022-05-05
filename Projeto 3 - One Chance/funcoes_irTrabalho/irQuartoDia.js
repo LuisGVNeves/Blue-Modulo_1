@@ -75,7 +75,6 @@ module.exports = function irQuartoDia(i){
       }
     }
 
-
     // # Caso usuário aceite sair com a cientista
     if(sairComCientista == 'SIM'){
       console.log('\n');
