@@ -38,6 +38,7 @@ let cientista = {
   aumentarDepressao: function(valor){
     if(this.depressao <= 100){
       this.depressao += valor;
+      this.felicidade -= valor;
       return `\nDr.${cientista.nome} ganhou + \x1b[33m${valor}\x1b[0m depressão😔\n`;
     }else{
       this.depressao = 100;
@@ -87,6 +88,7 @@ let cientista = {
     this.gordura = 0;
     this.saude = 0;
     this.ansiedade = 0;
+    this.progressoCura = 0;
     console.log(`\n
     💡Criatividade ${cientista.nome} -${this.criatividade}
     😔Depressão ${cientista.nome} -${this.depressao}

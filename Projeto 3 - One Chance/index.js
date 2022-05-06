@@ -63,7 +63,7 @@ while(iniciarJogo == 'SIM'){
 
   let pergunta;
 
-  // # Contagem dos dias
+  // # Contagem dos dias && Passagem do tempo mostraData(i)
   for(let i = 0; i <= 4; i++){
     // # 1 Dia
     if(i == 1){
@@ -142,5 +142,8 @@ while(iniciarJogo == 'SIM'){
   }
   else{
     iniciarJogo = 'SIM';
+    
+    // # Resetar propriedades do objeto
+    cientista.desistir();
   }
 }
