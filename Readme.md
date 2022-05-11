@@ -12,6 +12,8 @@
 
 ## Projeto 3 - One Chance
 
-- Projeto final, onde precisavamos criar uma história totalmente ficticia baseada em jogos de texto, no qual os jogadores usam comandos de texto para controlar personagens do jogo para influenciar o ambiente. O projeto foi inspirado pelo famoso jogo **One Chance**, só que o objetivo era transformar ele de jogo 2d para um jogo de texto.
+- Projeto final, onde precisavamos criar uma história totalmente ficticia baseada em jogos de texto, no qual os jogadores usam comandos de texto para controlar personagens do jogo para influenciar o ambiente. O projeto foi inspirado pelo famoso jogo **One Chance**, só que o objetivo era transformar ele de jogo 2d para um jogo de texto. 
+
+- Para isso utilizei `funções`, `objetos`, `estruturas de repetição`, `variáveis`, `arrays`, `estruturas condicionais` e `modularização de código.`
 
   * [x] Projeto 3 - One Chance
